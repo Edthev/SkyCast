@@ -1,7 +1,7 @@
 const express = require("express");
 const dotenv = require("dotenv");
 const app = express();
-const Minute = require("./components/minute");
+const Minutecast = require("./components/minute");
 dotenv.config();
 
 const PORT = process.env.PORT || 8080;
@@ -13,8 +13,8 @@ app.get("/", (req, res) => {
    res.send("Server Online");
 });
 
-app.get("/minute", async (req, res) => {
-   Minute(req, res, MINUTECAST_API_KEY, CORD_LAT, CORD_LONG);
+app.get("/minutecast", async (req, res) => {
+   Minutecast(req, res, MINUTECAST_API_KEY, CORD_LAT, CORD_LONG);
 });
 
 app.listen(PORT, () => {
