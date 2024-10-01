@@ -2,7 +2,7 @@ const express = require("express");
 const dotenv = require("dotenv");
 const app = express();
 
-const Minutecast = require("./components/minute");
+const Minutecast = require("./components/minutecast");
 const CitySearch = require("./components/citySearch");
 const Forecast = require("./components/forecast");
 dotenv.config();
