@@ -12,9 +12,9 @@ const PORT = process.env.PORT || 8080;
 const MINUTECAST_API_KEY = process.env.MINUTECAST_API_KEY;
 const CORE_WEATHER_API_KEY = process.env.CORE_WEATHER_API_KEY;
 const LOCATION = process.env.LOCATION;
+const localhostURL = "http://localhost:" + PORT;
 
 app.get("/", (req, res) => {
-   const localhostURL = "http://localhost:" + PORT;
    res.send({
       Status: "Server Online",
       City_Search: localhostURL + "/search",
@@ -35,5 +35,5 @@ app.get("/search", async (req, res) => {
 });
 
 app.listen(PORT, () => {
-   console.log(`Server Running on http://localhost:${PORT}`);
+   console.log(`Server Running on ${localhostURL}`);
 });
