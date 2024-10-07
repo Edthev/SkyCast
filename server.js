@@ -23,7 +23,7 @@ app.get("/minutecast", async (req, res) => {
 });
 
 app.get("/search", async (req, res) => {
-   CitySearch(req, res, CORE_WEATHER_API_KEY, LOCATION);
+   CitySearch(req, res, CORE_WEATHER_API_KEY, LOCATION, cachedLocation);
 });
 
 app.listen(PORT, () => {
