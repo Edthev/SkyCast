@@ -17,8 +17,9 @@ app.get("/", (req, res) => {
    const localhostURL = "http://localhost:" + PORT;
    res.send({
       Status: "Server Online",
-      Minutecast: localhostURL + "/minutecast",
+      City_Search: localhostURL + "/search",
       Forecast: localhostURL + "/forecast",
+      Minutecast: localhostURL + "/minutecast",
    });
 });
 
