@@ -14,11 +14,11 @@ const CORE_WEATHER_API_KEY = process.env.CORE_WEATHER_API_KEY;
 const LOCATION = process.env.LOCATION;
 
 app.get("/", (req, res) => {
-   const r = "http://localhost:" + PORT;
+   const localhostURL = "http://localhost:" + PORT;
    res.send({
       Status: "Server Online",
-      Minutecast: r + "/minutecast",
-      Forecast: r + "/forecast",
+      Minutecast: localhostURL + "/minutecast",
+      Forecast: localhostURL + "/forecast",
    });
 });
 
@@ -26,7 +26,7 @@ app.get("/minutecast", async (req, res) => {
    Minutecast(req, res, MINUTECAST_API_KEY, PORT);
 });
 app.get("/forecast", async (req, res) => {
-   Forecast(req, res, CORE_WEATHER_API_KEY);
+   Forecast(req, res, CORE_WEATHER_API_KEY, PORT);
 });
 
 app.get("/search", async (req, res) => {
