@@ -11,8 +11,6 @@ const PORT = process.env.PORT || 8080;
 const MINUTECAST_API_KEY = process.env.MINUTECAST_API_KEY;
 const CORE_WEATHER_API_KEY = process.env.CORE_WEATHER_API_KEY;
 const LOCATION = process.env.LOCATION;
-const CORD_LAT = process.env.CORD_LAT;
-const CORD_LONG = process.env.CORD_LONG;
 
 app.get("/", (req, res) => {
    res.send("Server Online");
