@@ -1,7 +1,9 @@
 const { default: axios } = require("axios");
 
-const forecast = async (req, res, API_KEY, LOCATION_KEY) => {
+const forecast = async (req, res, API_KEY, PORT) => {
    try {
+      const searchRequest = await axios.get(`http://localhost:${PORT}/search`);
+      const LOCATION_KEY = searchRequest.data.Location;
       const rs = await axios.get(
          `http://dataservice.accuweather.com/forecasts/v1/daily/1day/${LOCATION_KEY}?apikey=${API_KEY}&details=true&metric=false`
       );
