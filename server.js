@@ -5,6 +5,7 @@ const Minutecast = require("./components/minutecast");
 const CitySearch = require("./components/citySearch");
 const NodeCache = require("node-cache");
 const cachedLocation = new NodeCache();
+const Forecast = require("./components/forecast");
 dotenv.config();
 
 const PORT = process.env.PORT || 8080;
@@ -13,11 +14,19 @@ const CORE_WEATHER_API_KEY = process.env.CORE_WEATHER_API_KEY;
 const LOCATION = process.env.LOCATION;
 
 app.get("/", (req, res) => {
-   res.send("Server Online");
+   const r = "http://localhost:" + PORT;
+   res.send({
+      Status: "Server Online",
+      Minutecast: r + "/minutecast",
+      Forecast: r + "/forecast",
+   });
 });
 
 app.get("/minutecast", async (req, res) => {
    Minutecast(req, res, MINUTECAST_API_KEY, PORT);
+});
+app.get("/forecast", async (req, res) => {
+   Forecast(req, res, CORE_WEATHER_API_KEY);
 });
 
 app.get("/search", async (req, res) => {
