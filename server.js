@@ -19,7 +19,7 @@ app.get("/", (req, res) => {
 });
 
 app.get("/minutecast", async (req, res) => {
-   Minutecast(req, res, MINUTECAST_API_KEY, CORD_LAT, CORD_LONG);
+   Minutecast(req, res, MINUTECAST_API_KEY, PORT);
 });
 
 app.get("/search", async (req, res) => {
