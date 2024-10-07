@@ -4,7 +4,7 @@ const app = express();
 const Minutecast = require("./components/minutecast");
 const CitySearch = require("./components/citySearch");
 const NodeCache = require("node-cache");
-const myCache = new NodeCache();
+const cachedLocation = new NodeCache();
 dotenv.config();
 
 const PORT = process.env.PORT || 8080;
