@@ -6,6 +6,7 @@ const CitySearch = require("./components/citySearch");
 const NodeCache = require("node-cache");
 const cachedLocation = new NodeCache();
 const Forecast = require("./components/forecast");
+const { default: axios } = require("axios");
 dotenv.config();
 
 const PORT = process.env.PORT || 8080;
@@ -37,3 +38,13 @@ app.get("/search", async (req, res) => {
 app.listen(PORT, () => {
    console.log(`Server Running on ${localhostURL}`);
 });
+
+const getMinutecast = async () => {
+   const res = await axios.get(localhostURL + "/minutecast");
+   const phrase = res.data.Data.Summary.Phrase;
+   console.log(phrase);
+};
+getMinutecast();
+setInterval(async () => {
+   getMinutecast();
+}, 120 * 60 * 1000);
