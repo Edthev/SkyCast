@@ -1,9 +1,11 @@
 const { default: axios } = require("axios");
 const { response } = require("express");
-const minute = async (req, res, KEY, LAT, LONG) => {
+const minute = async (req, res, KEY, PORT) => {
    try {
+      const searchRequest = await axios.get(`http://localhost:${PORT}/search`);
+      const CORDS = searchRequest.data.Cords;
       const response = await axios.get(
-         `http://dataservice.accuweather.com/forecasts/v1/minute?q=${LAT}%2C%20${LONG}&apikey=${KEY}`
+         `http://dataservice.accuweather.com/forecasts/v1/minute?q=${CORDS}&apikey=${KEY}`
       );
       console.log("minutecast success:", response.status);
       res.send({ Status: response.status, Data: response.data });
