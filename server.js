@@ -40,9 +40,10 @@ app.listen(PORT, () => {
 });
 
 const getMinutecast = async () => {
+   const timestamp = new Date();
    const res = await axios.get(localhostURL + "/minutecast");
    const phrase = res.data.Data.Summary.Phrase;
-   console.log(phrase);
+   console.log(phrase + " | " + timestamp);
 };
 getMinutecast();
 setInterval(async () => {
