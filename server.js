@@ -59,9 +59,10 @@ app.listen(PORT, () => {
 const getMinutecast = async () => {
    try {
       const res = await axios.get(localhostURL + "/minutecast");
+     const phrase = res.data.Data.Summary.Phrase;
       const timestamp = new Date();
       if (res.data.Status == 200) {
-         console.log(res.data.Data.Summary.Phrase + " | " + timestamp);
+         console.log(phrase + " | " + timestamp);
          return res.data.Data.Summary.Phrase;
       } else {
          return res.data.Data.Message;
