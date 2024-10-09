@@ -22,10 +22,8 @@ const mail = async (req, res, API_KEY, RECEIVER, SENDER, SUBJECT, HTML) => {
    };
    try {
       await main();
-      res.send({ Mail: "Sent" });
    } catch (err) {
       console.log(err);
-      res.send({ Mail: "Err", Error: err });
    }
 };
 module.exports = mail;
