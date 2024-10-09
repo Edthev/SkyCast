@@ -71,6 +71,6 @@ const getMinutecast = async () => {
    }
 };
 // getMinutecast();
-setInterval(async () => {
-   console.log(getMinutecast());
-}, 120 * 60 * 1000);
+// setInterval(async () => {
+//    console.log(getMinutecast());
+// }, 120 * 60 * 1000);
