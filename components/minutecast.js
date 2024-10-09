@@ -1,5 +1,4 @@
 const { default: axios } = require("axios");
-const { response } = require("express");
 const minute = async (req, res, KEY, PORT) => {
    try {
       const searchRequest = await axios.get(`http://localhost:${PORT}/search`);
@@ -12,7 +11,7 @@ const minute = async (req, res, KEY, PORT) => {
    } catch (err) {
       if (err.response) {
          console.log("minutecast err:", err.response.status);
-         res.send({ ERROR: err.response.status, Data: err.response.data });
+         res.send({ Status: err.response.status, Data: err.response.data });
       } else {
          console.log(err);
          res.send({ ERROR: err });

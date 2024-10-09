@@ -29,8 +29,13 @@ const citySearch = async (req, res, KEY, LOCATION, cachedLocation) => {
          res.send({ Location: cachedLocationKey, Cords: cachedCords });
       }
    } catch (err) {
-      console.error(err);
-      res.send({ ERROR: err });
+      if (err.status == 503) {
+         console.log("err status", 503, err.response.data);
+         res.send({ Error: err.response.data.Message });
+      } else {
+         console.error("Search Error:", err);
+         res.send({ ERROR: err });
+      }
    }
 };
 module.exports = citySearch;
