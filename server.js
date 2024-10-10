@@ -68,7 +68,7 @@ const getMinutecast = async () => {
          console.log(phrase + " | " + timestamp);
          const HTML = res.data.Data.Summary.Phrase;
          const SUBJECT = "Minutecast";
-         if (HTML !== "No precipitation for at least 120 min ") {
+         if (HTML !== "No precipitation for at least 120 min") {
             Mail(SENDGRID_API_KEY, EMAIL_RECEIVER, EMAIL_SENDER, SUBJECT, HTML);
          }
       } else {
@@ -91,4 +91,6 @@ getMinutecast();
 setInterval(async () => {
    getMorningMessage();
 }, 24 * 60 * 60 * 1000);
-setInterval(async () => {}, 120 * 1000);
+setInterval(async () => {
+   getMinutecast();
+}, 120 * 1000);
