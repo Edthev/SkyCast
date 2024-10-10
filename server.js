@@ -4,6 +4,7 @@ const app = express();
 const Minutecast = require("./components/minutecast");
 const CitySearch = require("./components/citySearch");
 const Mail = require("./components/mail");
+const MorningMessage = require("./components/morningMessage");
 const NodeCache = require("node-cache");
 const cachedLocation = new NodeCache();
 const Forecast = require("./components/forecast");
@@ -40,11 +41,13 @@ app.get("/mail", async (req, res) => {
       const response = await axios.get(localhostURL + "/minutecast");
       const message = response.data.Data.Message;
       const HTML = `<div>${JSON.stringify(message)}</div>`;
-      Mail(req, res, SENDGRID_API_KEY, EMAIL_RECEIVER, EMAIL_SENDER, SUBJECT, HTML);
+      Mail(SENDGRID_API_KEY, EMAIL_RECEIVER, EMAIL_SENDER, SUBJECT, HTML);
+      res.send({ Mail: "Sent" });
    } catch (err) {
       console.log("Error mail:", err);
       const HTML = `<div>${JSON.stringify(err)}</div>`;
-      Mail(req, res, SENDGRID_API_KEY, EMAIL_RECEIVER, EMAIL_SENDER, SUBJECT, HTML);
+      Mail(SENDGRID_API_KEY, EMAIL_RECEIVER, EMAIL_SENDER, SUBJECT, HTML);
+      res.send({ Mail: "Err", Error: err });
    }
 });
 
@@ -59,15 +62,35 @@ app.listen(PORT, () => {
 const getMinutecast = async () => {
    try {
       const res = await axios.get(localhostURL + "/minutecast");
-     const phrase = res.data.Data.Summary.Phrase;
+      const phrase = res.data.Data.Summary.Phrase;
       const timestamp = new Date();
       if (res.data.Status == 200) {
          console.log(phrase + " | " + timestamp);
-         return res.data.Data.Summary.Phrase;
+         const HTML = res.data.Data.Summary.Phrase;
+         const SUBJECT = "Minutecast";
+         if (HTML !== "No precipitation for at least 120 min") {
+            Mail(SENDGRID_API_KEY, EMAIL_RECEIVER, EMAIL_SENDER, SUBJECT, HTML);
+         }
       } else {
-         return res.data.Data.Message;
+         const HTML = res.data.Data.Message;
+         const SUBJECT = "Minutecast";
+         Mail(SENDGRID_API_KEY, EMAIL_RECEIVER, EMAIL_SENDER, SUBJECT, HTML);
       }
    } catch (err) {
       return "err";
    }
 };
+
+const getMorningMessage = async (req, res) => {
+   const HTML = await MorningMessage(axios, localhostURL);
+   const SUBJECT = "Weather Minutecast & Forecast";
+   Mail(SENDGRID_API_KEY, EMAIL_RECEIVER, EMAIL_SENDER, SUBJECT, HTML);
+};
+getMorningMessage();
+getMinutecast();
+setInterval(async () => {
+   getMorningMessage();
+}, 24 * 60 * 60 * 1000);
+setInterval(async () => {
+   getMinutecast();
+}, 120 * 1000);

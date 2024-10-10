@@ -1,6 +1,6 @@
 const nodemailer = require("nodemailer");
 
-const mail = async (req, res, API_KEY, RECEIVER, SENDER, SUBJECT, HTML) => {
+const mail = async (API_KEY, RECEIVER, SENDER, SUBJECT, HTML) => {
    const transporter = nodemailer.createTransport({
       host: "smtp.sendgrid.net",
       port: 587,
@@ -22,10 +22,8 @@ const mail = async (req, res, API_KEY, RECEIVER, SENDER, SUBJECT, HTML) => {
    };
    try {
       await main();
-      res.send({ Mail: "Sent" });
    } catch (err) {
       console.log(err);
-      res.send({ Mail: "Err", Error: err });
    }
 };
 module.exports = mail;
