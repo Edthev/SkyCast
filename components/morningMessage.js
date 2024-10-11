@@ -54,9 +54,7 @@ const morningMessage = async (axios, localhostURL, Mail) => {
          Grass: ${grassPollen}<div>
          Mold:${moldPollen}<div>
          Ragweed:${ragweedPollen}<div>
-         Tree:${treePollen}<div>
-
-      `;
+         Tree:${treePollen}<div`;
    } catch (err) {
       console.error(err);
       return "Error";

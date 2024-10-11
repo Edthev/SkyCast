@@ -93,4 +93,4 @@ setInterval(async () => {
 }, 24 * 60 * 60 * 1000);
 setInterval(async () => {
    getMinutecast();
-}, 120 * 1000);
+}, 120 * 60 * 1000);
